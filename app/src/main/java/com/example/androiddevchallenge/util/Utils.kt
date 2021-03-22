@@ -12,11 +12,8 @@ fun Window.makeTransparentStatusBar(isDarkTheme: Boolean) {
     decorView.systemUiVisibility =
         View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
     WindowInsetsControllerCompat(this, decorView)
-        .isAppearanceLightStatusBars = isDarkTheme
+        .isAppearanceLightStatusBars = !isDarkTheme
 }
 
 @Composable
 fun Dp.toPx() = with(LocalDensity.current) { toPx() }
-
-@Composable
-fun Int.toDp() = with(LocalDensity.current) { toDp() }
