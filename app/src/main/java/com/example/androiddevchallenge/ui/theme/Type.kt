@@ -27,17 +27,13 @@ val typography = Typography(
     body1 = TextStyle(
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp
-    )
-        /* Other default text styles to override
-    button = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.W500,
-        fontSize = 14.sp
     ),
-    caption = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 12.sp
+    h3 = TextStyle(
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 48.sp
+    ),
+    h5 = TextStyle(
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 24.sp
     )
-    */
 )

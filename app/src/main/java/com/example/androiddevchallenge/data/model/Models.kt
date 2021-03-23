@@ -14,13 +14,22 @@ data class Weather(
     val conditions: Conditions
 ) {
 
-    enum class Conditions { Cloudy, PartiallyCloudy, Sunny, Rainy, Stormy }
+    enum class Conditions {
+        PartiallyCloudy, PartiallyCloudyNight,
+        Sunny, Night,
+        Rainy, RainyNight,
+        Stormy, StormyNight
+    }
 
     data class Temperature(private val value: Int) {
 
         fun asCelsius(): Int = value
 
+        fun asCelsiusString(): String = "${asCelsius()}℃"
+
         fun asFahrenheit(): Int = ((value * 1.8f) + 32).roundToInt()
+
+        fun asFahrenheitString(): String = "${asCelsius()}℉"
     }
 }
 
