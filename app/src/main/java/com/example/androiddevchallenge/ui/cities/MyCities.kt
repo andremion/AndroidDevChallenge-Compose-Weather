@@ -13,10 +13,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Card
-import androidx.compose.material.LocalContentAlpha
+import androidx.compose.material.LocalContentColor
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,7 +28,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieAnimationSpec
-import com.airbnb.lottie.compose.rememberLottieAnimationState
 import com.example.androiddevchallenge.data.model.City
 import com.example.androiddevchallenge.ui.animation.AnimatedList
 import com.example.androiddevchallenge.ui.model.backgroundColors
@@ -69,32 +69,32 @@ fun MyCities(
                         .fillMaxWidth()
                         .applyAnimation(index)
                 ) {
-                    val backgroundColors = city.backgroundColors
+                    val backgroundColors = city.weather.backgroundColors
                     val contentColor = Color.White
-                    Row(
-                        modifier = Modifier
-                            .background(backgroundColors)
-                            .clickable { onClick(city.id) }
-                            .padding(InnerPadding),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Column {
-                            Text(
-                                text = city.name,
-                                color = contentColor,
-                                style = MaterialTheme.typography.h5
-                            )
-                            Text(
-                                text = city.weather.temperature.asCelsiusString(),
-                                color = contentColor.copy(alpha = LocalContentAlpha.current),
-                                style = MaterialTheme.typography.h3
+                    CompositionLocalProvider(LocalContentColor provides contentColor) {
+                        Row(
+                            modifier = Modifier
+                                .background(backgroundColors)
+                                .clickable { onClick(city.id) }
+                                .padding(InnerPadding),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column {
+                                Text(
+                                    text = city.name,
+                                    style = MaterialTheme.typography.h5
+                                )
+                                Text(
+                                    text = city.weather.temperature.asCelsiusString(),
+                                    style = MaterialTheme.typography.h3
+                                )
+                            }
+                            LottieAnimation(
+                                modifier = Modifier.fillMaxHeight(),
+                                spec = remember { LottieAnimationSpec.RawRes(city.weather.icon) }
                             )
                         }
-                        LottieAnimation(
-                            modifier = Modifier.fillMaxHeight(),
-                            spec = remember { LottieAnimationSpec.RawRes(city.icon) }
-                        )
                     }
                 }
             }

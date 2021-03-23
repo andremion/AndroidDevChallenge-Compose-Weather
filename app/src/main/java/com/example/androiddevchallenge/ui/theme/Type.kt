@@ -28,12 +28,24 @@ val typography = Typography(
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp
     ),
+    h2 = TextStyle(
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 60.sp
+    ),
     h3 = TextStyle(
         fontWeight = FontWeight.SemiBold,
         fontSize = 48.sp
     ),
+    h4 = TextStyle(
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 34.sp
+    ),
     h5 = TextStyle(
         fontWeight = FontWeight.SemiBold,
         fontSize = 24.sp
+    ),
+    h6 = TextStyle(
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 20.sp
     )
 )
