@@ -1,26 +1,32 @@
 package com.example.androiddevchallenge.data
 
-import com.example.androiddevchallenge.data.model.City
-import com.example.androiddevchallenge.data.model.CityDetails
-import com.example.androiddevchallenge.data.model.Forecast
-import com.example.androiddevchallenge.data.model.Weather
+import com.example.androiddevchallenge.domain.model.City
+import com.example.androiddevchallenge.domain.model.CityDetails
+import com.example.androiddevchallenge.domain.model.Forecast
+import com.example.androiddevchallenge.domain.model.Weather
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import java.util.Calendar
 import kotlin.random.Random
 import kotlin.random.nextInt
 
 class WeatherRepository {
 
-    fun getMyCities(): List<City> =
-        myCities.values.map(CityDetails::city)
+    fun getMyCities(): Flow<List<City>> =
+        flowOf(myCities.values.map(CityDetails::city))
 
-    fun getCityDetails(id: String): CityDetails =
-        myCities[id] ?: throw NotFoundException("\"$id\" was not found")
+    fun getCityDetails(id: String): Flow<CityDetails> =
+        flow {
+            myCities[id]?.let { emit(it) }
+                ?: throw NotFoundException("\"$id\" was not found")
+        }
 }
 
 class NotFoundException(message: String) : RuntimeException(message)
 
 private val cities: List<Pair<String, String>> = listOf(
-    "NYW" to "New York",
+    "NYC" to "New York",
     "LON" to "London",
     "PAR" to "Paris",
     "BER" to "Berlin",

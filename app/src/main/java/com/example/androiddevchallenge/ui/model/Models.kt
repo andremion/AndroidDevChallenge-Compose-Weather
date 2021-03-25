@@ -3,7 +3,7 @@ package com.example.androiddevchallenge.ui.model
 import androidx.annotation.RawRes
 import androidx.compose.ui.graphics.Color
 import com.example.androiddevchallenge.R
-import com.example.androiddevchallenge.data.model.Weather
+import com.example.androiddevchallenge.domain.model.Weather
 
 val Weather.backgroundColors: List<Color>
     get() = when (conditions) {

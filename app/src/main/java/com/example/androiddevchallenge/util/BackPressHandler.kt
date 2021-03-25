@@ -4,12 +4,11 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.remember
 
 @Composable
 fun BackPressHandler(enabled: Boolean = true, onBackPressed: () -> Unit) {
-    val dispatcher = LocalOnBackPressedDispatcherOwner.current.onBackPressedDispatcher
 
     val backCallback = remember {
         object : OnBackPressedCallback(enabled) {
@@ -20,10 +19,9 @@ fun BackPressHandler(enabled: Boolean = true, onBackPressed: () -> Unit) {
     }
 
     // Guarantees that failed transactions don't incorrectly toggle the remembered callback.
-    LaunchedEffect(enabled) {
-        backCallback.isEnabled = enabled
-    }
+    SideEffect { backCallback.isEnabled = enabled }
 
+    val dispatcher = LocalOnBackPressedDispatcherOwner.current.onBackPressedDispatcher
     DisposableEffect(dispatcher) {
         // Whenever there's a new dispatcher set up the callback
         dispatcher.addCallback(backCallback)

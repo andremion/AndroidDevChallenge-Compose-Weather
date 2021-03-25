@@ -18,6 +18,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,9 +28,9 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieAnimationSpec
-import com.example.androiddevchallenge.data.model.City
 import com.example.androiddevchallenge.ui.animation.AnimatedList
 import com.example.androiddevchallenge.ui.model.backgroundColors
 import com.example.androiddevchallenge.ui.model.icon
@@ -42,9 +44,11 @@ private val OuterPadding = 8.dp
 
 @Composable
 fun MyCities(
-    cities: List<City>,
     onClick: (id: String) -> Unit
 ) {
+    val viewModel = viewModel(MyCitiesViewModel::class.java)
+    val viewState by viewModel.state.collectAsState()
+    val cities = viewState.cities
 
     AnimatedList(
         itemCount = cities.size,

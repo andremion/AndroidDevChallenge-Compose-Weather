@@ -1,4 +1,4 @@
-package com.example.androiddevchallenge.data.model
+package com.example.androiddevchallenge.domain.model
 
 import java.util.Calendar
 import kotlin.math.roundToInt
